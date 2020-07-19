@@ -1,0 +1,71 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}  
+  </h1>
+  <div class="row">
+    <div class="column">
+      <div class="card">
+      <img src="https://media.gettyimages.com/vectors/tennis-racket-icon-flat-vector-id837714034" alt="John" style="width:100%">
+      <h1>{{p1.playerName}}</h1>
+      <p><button (click)="addP1Point()">Add P1 Point</button></p>
+    </div>
+  </div>
+    <div class="column">
+    <div class="card">
+      <img src="https://media.gettyimages.com/vectors/tennis-racket-icon-flat-vector-id837714034" alt="John" style="width:100%">
+      <h1>{{p2.playerName}}</h1>
+      <p><button (click)="addP2Point()">Add P2 Point</button></p>
+    </div>  
+  </div> 
+  </div>
+
+  <div *ngIf="gameOver == false" style="overflow-x:auto;">
+    <table>
+      <tr>
+        <th>Player Name</th>
+        <th>Set</th>
+        <th>Points</th>
+      </tr>
+      <tr>
+        <td>{{p1.playerName}}</td>
+        <td>{{setP1}}</td>
+        <td>{{gameP1}}</td>
+      </tr>
+      <tr>
+        <td>{{p2.playerName}}</td>
+        <td>{{setP2}}</td>
+        <td>{{gameP2}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div *ngIf="gameOver== true" style="overflow-x:auto;">
+      <label>Winner Player</label>
+      <h2>{{winnerplayer?.playerName}}</h2>
+    <table>
+      <tr *ngFor="let item of games; let i = index">
+      <td>{{convertPoint(item.p1GameScore)}}</td>
+      <td>{{convertPoint(item.p2GameScore)}}</td>
+      </tr>
+    </table>
+  </div>
+  <button class="button" (click)="open(mymodal)">New Match</button>
+
+
+
+  <ng-template #mymodal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title"> Add Players </h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+    <label>Player 1</label>  <input [(ngModel)]="textValue1" type="text" class="form-control">
+    <label>Player 2</label>  <input [(ngModel)]="textValue2" type="text" class="form-control">
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="startGame();modal.close('Save click')">Add</button>
+    </div>
+  </ng-template>
